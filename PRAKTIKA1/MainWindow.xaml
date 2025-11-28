@@ -5,9 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PRAKTIKA1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="1024" Width="1440">
     <Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="148,197,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="425">
+
+        <Grid.Background>
+            <ImageBrush ImageSource="/1440.1024.png"/>
+        </Grid.Background>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="1246,0,0,0" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Width="170" Height="70" Background="#FFFF6F07">
             <Button.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -17,6 +21,13 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
+        <TextBox HorizontalAlignment="Left" Margin="142,28,0,0" TextWrapping="Wrap" Text="Перелётики" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged" Background="#FF028DFE" Foreground="White"/>
+        <ComboBox x:Name="Откуда" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Margin="41,0,0,0" Height="70" SelectionChanged="Откуда_SelectionChanged"/>
+        <ComboBox x:Name="Куда" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Margin="241,0,0,0" Height="70" SelectionChanged="Куда_SelectionChanged_1"/>
+        <ComboBox x:Name="Пассажир" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Margin="841,0,0,0" Height="70" SelectionChanged="Пассажир_SelectionChanged"/>
+        <ComboBox x:Name="Качество" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Margin="1041,0,0,0" Height="70" SelectionChanged="Качество_SelectionChanged"/>
+        <DatePicker x:Name="когда" HorizontalAlignment="Left" Margin="441,0,0,0" VerticalAlignment="Center" Width="200" Height="70"/>
+        <DatePicker x:Name="Обратно" HorizontalAlignment="Left" Margin="641,0,0,0" VerticalAlignment="Center" Width="200" Height="70"/>
 
     </Grid>
 </Window>
