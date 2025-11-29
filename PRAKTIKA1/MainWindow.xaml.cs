@@ -58,5 +58,37 @@ namespace PRAKTIKA1
         {
 
         }
+
+        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Профиль_Click(object sender, RoutedEventArgs e)
+        {
+            Reg reg = new Reg();
+            reg.Show();
+            this.Hide();
+        }
+
+        private void Поддержка_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Mony_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Перелётики_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

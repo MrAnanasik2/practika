@@ -10,14 +10,18 @@
 
   <ItemGroup>
     <None Remove="1440.1024.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="img\" />
+    <None Remove="img\1440.1024.png" />
+    <None Remove="img\PERELETIK.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="1440.1024.png" />
+    <Resource Include="img\1440.1024.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\PERELETIK.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
