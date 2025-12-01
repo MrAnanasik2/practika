@@ -16,9 +16,6 @@
 
   <ItemGroup>
     <Resource Include="1440.1024.png" />
-    <Resource Include="img\1440.1024.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="img\PERELETIK.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
