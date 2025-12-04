@@ -15,25 +15,13 @@ using System.Windows.Shapes;
 namespace PRAKTIKA1
 {
     /// <summary>
-    /// Логика взаимодействия для hot.xaml
+    /// Логика взаимодействия для Map.xaml
     /// </summary>
-    public partial class hot : Window
+    public partial class Map : Window
     {
-        public hot()
+        public Map()
         {
             InitializeComponent();
-        }
-
-        private void Перелётики_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindow main = new MainWindow();
-            main.Show();
-            this.Close();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

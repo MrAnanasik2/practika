@@ -12,7 +12,7 @@
         </Grid.Background>
         <Rectangle HorizontalAlignment="Center" Height="792" VerticalAlignment="Center" Width="1000" Fill="#FFFFA033" RadiusY="56"/>
         <TextBlock HorizontalAlignment="Left" Margin="262,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="458" Height="100" FontSize="40"><Run Language="ru-ru" Text="Горячие путёвки со скидками до 70%"/></TextBlock>
-        <Button HorizontalAlignment="Center" Height="150" VerticalAlignment="Top" Width="900"  Margin="0,431,0,0" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="White" />
+        <Button HorizontalAlignment="Center" Height="150" VerticalAlignment="Top" Width="900"  Margin="0,431,0,0" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="White" Click="Button_Click" />
         <TextBlock HorizontalAlignment="Left" Margin="313,447,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="112" Height="40" FontSize="32" Text="1 991 Р 5 745 Р"/>
         <TextBlock HorizontalAlignment="Left" Margin="430,465,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" Height="25" FontSize="18" Text="5 745 Р" Opacity="0.5"/>
         <TextBlock HorizontalAlignment="Left" Margin="467,536,0,0" TextWrapping="Wrap" Text="22 ноя    17:45 - 21:30" VerticalAlignment="Top" FontSize="24"/>

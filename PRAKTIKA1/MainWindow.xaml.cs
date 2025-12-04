@@ -39,7 +39,8 @@ namespace PRAKTIKA1
 
         private void Профиль_Click(object sender, RoutedEventArgs e)
         {
-
+            M.Visibility = Visibility.Visible;
+            M.Navigate(new more());
         }
 
         private void Mony_Click(object sender, RoutedEventArgs e)
