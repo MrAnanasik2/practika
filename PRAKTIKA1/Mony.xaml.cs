@@ -1,17 +1,42 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
 namespace PRAKTIKA1
 {
-    public partial class more : Page
+    /// <summary>
+    /// Логика взаимодействия для Mony.xaml
+    /// </summary>
+    public partial class Mony : Page
     {
-        public more()
+        public Mony()
         {
             InitializeComponent();
         }
 
-      
+        private void denga_Click(object sender, RoutedEventArgs e)
+        {
+            типы_денег.Visibility = Visibility.Visible;
+            типы_стран.Visibility = Visibility.Collapsed;
+        }
+
+        private void country_Click(object sender, RoutedEventArgs e)
+        {
+            типы_стран.Visibility = Visibility.Visible;
+            типы_денег.Visibility = Visibility.Collapsed;
+        }
+
         private void back_Click_1(object sender, RoutedEventArgs e)
         {
             // Попробуем сначала через NavigationService
@@ -53,28 +78,6 @@ namespace PRAKTIKA1
 
             // Если ничего не помогло — сообщим об этом пользователю
             MessageBox.Show("Не удалось закрыть страницу more.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
-        }
-
-        private void enter_Click(object sender, RoutedEventArgs e)
-        {
-            Reg reg = new Reg();
-            reg.Show();
-
-            // Закрываем главное окно (а значит и страницу more)
-            Window host = Window.GetWindow(this);
-            if (host != null)
-                host.Close();
-
-        }
-
-        private void settings_Click(object sender, RoutedEventArgs e)
-        {
-            settings s = new settings();
-            s.Show();
-            // Закрываем главное окно (а значит и страницу more)
-            Window host = Window.GetWindow(this);
-            if (host != null)
-                host.Close();
         }
     }
 }

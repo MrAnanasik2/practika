@@ -11,7 +11,7 @@
 
 
         <Grid  Background="White" Margin="921,161,129,512">
-            <Button x:Name="settings" Content="Настройки" Margin="54,79,54,221" BorderBrush="{x:Null}" Background="White" OpacityMask="#FFE4E4E4"/>
+            <Button x:Name="settings" Content="Настройки" Margin="54,79,54,221" BorderBrush="{x:Null}" Background="White" OpacityMask="#FFE4E4E4" Click="settings_Click"/>
             <Button x:Name="back" Content="X" HorizontalAlignment="Left" Margin="338,10,0,0" VerticalAlignment="Top" Height="42" Width="42" Background="#FFFF7C7C" BorderBrush="{x:Null}" Click="back_Click_1"/>
             <Button x:Name="enter" Content="Войти" Margin="54,175,54,125" BorderBrush="{x:Null}" Background="#FF66BCFF" OpacityMask="#FFE4E4E4" Click="enter_Click"/>
 

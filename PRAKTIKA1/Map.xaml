@@ -5,17 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PRAKTIKA1"
         mc:Ignorable="d"
-        Title="Map" Height="1023.4" Width="1440">
+        Title="Map" Height="1024" Width="1440">
     <Grid Width="1440" Height="1024">
         <Grid.Background>
             <ImageBrush ImageSource="/1440.1024.png"/>
         </Grid.Background>
-        <Grid Background="#FFE4E4E4" Margin="0,120,0,10">
+        <Grid Background="White" Margin="0,120,0,10">
             <Image Margin="404,0,10,0" Source="/img/mapa.png" Stretch="Fill" Height="874" VerticalAlignment="Center"/>
-            <Button Content="Button" HorizontalAlignment="Left" Margin="46,56,0,0" VerticalAlignment="Top" Height="100" Width="300"/>
-            <Button Content="Button" HorizontalAlignment="Left" Margin="46,218,0,0" VerticalAlignment="Top" Height="100" Width="300"/>
-            <Button Content="Button" HorizontalAlignment="Left" Margin="46,375,0,0" VerticalAlignment="Top" Height="100" Width="300"/>
+            <Button Content="Russia" HorizontalAlignment="Left" Margin="46,56,0,0" VerticalAlignment="Top" Height="100" Width="300" FontSize="18"/>
+            <Button Content="USA" HorizontalAlignment="Left" Margin="46,218,0,0" VerticalAlignment="Top" Height="100" Width="300" FontSize="18"/>
+            <Button Content="Erope" HorizontalAlignment="Left" Margin="46,375,0,0" VerticalAlignment="Top" Height="100" Width="300" FontSize="18"/>
+            
         </Grid>
+        <Button x:Name="Перелётики" Content="Перелётики" HorizontalAlignment="Left" Margin="141,30,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="20" Click="Перелётики_Click"/>
 
     </Grid>
 </Window>

@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace PRAKTIKA1
 {
     /// <summary>
-    /// Логика взаимодействия для Map.xaml
+    /// Логика взаимодействия для settings.xaml
     /// </summary>
-    public partial class Map : Window
+    public partial class settings : Window
     {
-        public Map()
+        public settings()
         {
             InitializeComponent();
         }
