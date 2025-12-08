@@ -6,10 +6,14 @@
         xmlns:local="clr-namespace:PRAKTIKA1"
         mc:Ignorable="d"
         Title="hot" Height="1023.8" Width="1440">
+    <Window.Background>
+        <ImageBrush/>
+    </Window.Background>
     <Grid HorizontalAlignment="Center" Width="1440">
         <Grid.Background>
             <ImageBrush ImageSource="/1440.1024.png"/>
         </Grid.Background>
+
         <Rectangle HorizontalAlignment="Center" Height="792" VerticalAlignment="Center" Width="1000" Fill="#FFFFA033" RadiusY="56"/>
         <TextBlock HorizontalAlignment="Left" Margin="262,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="458" Height="100" FontSize="40"><Run Language="ru-ru" Text="Горячие путёвки со скидками до 70%"/></TextBlock>
         <Button HorizontalAlignment="Center" Height="150" VerticalAlignment="Top" Width="900"  Margin="0,431,0,0" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="White" Click="Button_Click" />

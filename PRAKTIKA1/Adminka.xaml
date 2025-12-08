@@ -1,0 +1,25 @@
+﻿<Window x:Class="PRAKTIKA1.Adminka"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PRAKTIKA1"
+        mc:Ignorable="d"
+        Title="Adminka" Height="1024" Width="1440">
+    <Window.Background>
+        <ImageBrush ImageSource="/1440.1024.png"/>
+    </Window.Background>
+    <Grid Background="White" Margin="150,59,150,90">
+        <Button x:Name="Перелётики" Content="Перелётики" HorizontalAlignment="Left" Margin="-40,-55,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="20" Click="Перелётики_Click"/>
+        <ListBox ItemsSource="{Binding autorizes}" Margin="58,88,44,87" Background="{x:Null}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border>
+                        <TextBox Text="{Binding Id}" Width="100" Height="40" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <TextBlock HorizontalAlignment="Left" Margin="508,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="32"><Run Text="ADMINKLA"/><LineBreak/><Run/></TextBlock>
+    </Grid>
+</Window>

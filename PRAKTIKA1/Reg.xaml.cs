@@ -28,6 +28,25 @@ namespace PRAKTIKA1
 
         private void Рег_Click(object sender, RoutedEventArgs e)
         {
+            string login = Логин.Text.Trim().ToLower();
+            string password = Пароль.Password.Trim();
+
+            // Пароль обязателен
+            if (string.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("Введите пароль!", "Ошибка регистрации", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Существующие аккаунты
+            string[] exists = { "admin", "pilot", "stuard", "gruzchik" };
+
+            if (exists.Contains(login))
+            {
+                MessageBox.Show("Аккаунт уже существует!", "Ошибка регистрации", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             MainWindow main = new MainWindow();
             main.Show();
             this.Close();
@@ -85,5 +104,44 @@ namespace PRAKTIKA1
                 ? Visibility.Visible
                 : Visibility.Collapsed;
         }
+
+        private void Уже_есть_Click(object sender, RoutedEventArgs e)
+        {
+            string login = Логин.Text.Trim().ToLower();
+            string password = Пароль.Password.Trim();
+
+            // Логины, для которых нужен пароль
+            string[] allowedUsers = { "admin", "pilot", "stuard", "gruzchik" };
+
+            if (allowedUsers.Contains(login))
+            {
+                // Если пароль не введён
+                if (string.IsNullOrEmpty(password))
+                {
+                    MessageBox.Show("Введите пароль!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                // Проверка пароля
+                if (password == "123")
+                {
+                    Adminka adm = new Adminka();
+                    adm.Show();
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Неверный пароль!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                // ВСЕ остальные логины → без проверки пароля
+                MainWindow main = new MainWindow();
+                main.Show();
+                this.Close();
+            }
+        }
     }
+    
 }
