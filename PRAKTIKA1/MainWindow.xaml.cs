@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PRAKTIKA1.Models;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -6,7 +7,7 @@ namespace PRAKTIKA1
 {
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(autorize autorize)
         {
             InitializeComponent();
         }

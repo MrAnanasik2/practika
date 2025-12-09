@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MySql.Data.MySqlClient;
-using System.Windows;
+﻿using MySql.Data.MySqlClient;
 using PRAKTIKA1.Models;
+using System.Windows;
 
 namespace PRAKTIKA1
 {
@@ -86,87 +81,87 @@ namespace PRAKTIKA1
         }
 
         // Метод для аутентификации пользователя по логину и паролю
-        //public static User AuthenticateUser(string login, string password)
-        //{
-        //    try
-        //    {
-        //        string query = "SELECT * FROM users WHERE login = @login AND password = @password";
+        public static autorize AuthenticateUser(string login, string password)
+        {
+            try
+            {
+                string query = "SELECT * FROM autorize WHERE login = @login AND password = @password";
 
-        //        using (MySqlConnection connection = GetConnection())
-        //        using (MySqlCommand command = new MySqlCommand(query, connection))
-        //        {
-        //            command.Parameters.AddWithValue("@login", login);
-        //            command.Parameters.AddWithValue("@password", password);
+                using (MySqlConnection connection = GetConnection())
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@login", login);
+                    command.Parameters.AddWithValue("@password", password);
 
-        //            using (MySqlDataReader reader = command.ExecuteReader())
-        //            {
-        //                if (reader.Read())
-        //                {
-        //                    return new User
-        //                    {
-        //                        Id = reader.GetInt32("id"),
-        //                        Surname = reader.GetString("surname"),
-        //                        Name = reader.GetString("name"),
-        //                        Patronymic = reader.GetString("patronymic"),
-        //                        Role = reader.GetString("role"),
-        //                        Login = reader.GetString("login"),
-        //                        Password = reader.GetString("password")
-        //                    };
-        //                }
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show($"Ошибка аутентификации: {ex.Message}");
-        //    }
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return new autorize
+                            {
+                                Id = reader.GetInt32("Id"),
+                                Login = reader.GetString("Login"),
+                                Password = reader.GetString("Password"),
+                                Email = reader.GetString("E-mail"),
+                                Money_id = reader.GetInt32("Money_id"),
+                                Country_id = reader.GetInt32("Country_id"),
+                                Role = reader.GetString("Role")
+                            };
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка аутентификации: {ex.Message}");
+            }
 
-        //    return null;
-        //}
+            return null;
+        }
 
         // Метод для регистрации нового пользователя
-        //public static bool RegisterUser(User newUser)
-        //{
-        //    try
-        //    {
-        //        // Проверка существующего логина
-        //        string checkQuery = "SELECT COUNT(*) FROM users WHERE login = @login";
-        //        using (MySqlConnection connection = GetConnection())
-        //        using (MySqlCommand checkCommand = new MySqlCommand(checkQuery, connection))
-        //        {
-        //            checkCommand.Parameters.AddWithValue("@login", newUser.Login);
-        //            long count = (long)checkCommand.ExecuteScalar();
+        public static bool RegisterUser(autorize newUser)
+        {
+            try
+            {
+                // Проверка существующего логина
+                string checkQuery = "SELECT COUNT(*) FROM autorize WHERE login = @login";
+                using (MySqlConnection connection = GetConnection())
+                using (MySqlCommand checkCommand = new MySqlCommand(checkQuery, connection))
+                {
+                    checkCommand.Parameters.AddWithValue("@login", newUser.Login);
+                    long count = (long)checkCommand.ExecuteScalar();
 
-        //            if (count > 0)
-        //            {
-        //                MessageBox.Show("Пользователь с таким логином уже существует!");
-        //                return false;
-        //            }
-        //        }
+                    if (count > 0)
+                    {
+                        MessageBox.Show("Пользователь с таким логином уже существует!");
+                        return false;
+                    }
+                }
 
-        //        // Регистрация нового пользователя
-        //        string insertQuery = @"INSERT INTO users (surname, name, patronymic, role, login, password) 
-        //                        VALUES (@surname, @name, @patronymic, @role, @login, @password)";
+                // Регистрация нового пользователя
+                string insertQuery = @"INSERT INTO autorize (Login, Password, Email,Money_id, Country_id, Role) 
+                                VALUES (@Login, @Password, @Email, @Money_id, @Country_id, @Role)";
 
-        //        var parameters = new Dictionary<string, object>
-        //        {
-        //            ["@surname"] = newUser.Surname,
-        //            ["@name"] = newUser.Name,
-        //            ["@patronymic"] = newUser.Patronymic,
-        //            ["@role"] = "user", // Все новые пользователи получают роль 'user'
-        //            ["@login"] = newUser.Login,
-        //            ["@password"] = newUser.Password
-        //        };
+                var parameters = new Dictionary<string, object>
+                {
+                    ["@Login"] = newUser.Login,
+                    ["@Password"] = newUser.Password,
+                    ["@Email"] = newUser.Email,
+                    ["@Money_id"] = newUser.Money_id,
+                    ["@Country_id"] = newUser.Country_id,
+                    ["@Role"] = "user", // Все новые пользователи получают роль 'user'
+                };
 
-        //        ExecuteNonQueryWithParameters(insertQuery, parameters);
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show($"Ошибка регистрации: {ex.Message}");
-        //        return false;
-        //    }
-        //}
+                ExecuteNonQueryWithParameters(insertQuery, parameters);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка регистрации: {ex.Message}");
+                return false;
+            }
+        }
 
         // Метод для получения всех пользователей из БД
         public static List<autorize> GetAllUsers()
@@ -183,6 +178,18 @@ namespace PRAKTIKA1
                 Money_id = reader.GetInt32("Money_id"),
                 Country_id = reader.GetInt32("Country_id"),
                 Role = reader.GetString("Role")
+            });
+        }
+
+        public static List<Models.Money> GetMonies() 
+        {
+            string query = "SELECT * FROM Money ORDER BY Mony_id";
+
+            // Используем универсальный метод GetData с лямбда-выражением для создания объектов User
+            return GetData(query, reader => new Models.Money
+            {
+                Mony_id = reader.GetInt32("Mony_id"),
+                Mony_type = reader.GetString("Mony_type")
             });
         }
 

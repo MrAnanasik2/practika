@@ -8,7 +8,8 @@ namespace PRAKTIKA1.Models
 {
     internal class reys
     {
-        public int Flight_id { get; set; }
+        public int Flight_id { get; set; }  
         public int Airplane_id { get; set; }
+
     }
 }

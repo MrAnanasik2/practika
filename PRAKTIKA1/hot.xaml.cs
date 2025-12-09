@@ -26,7 +26,7 @@ namespace PRAKTIKA1
 
         private void Перелётики_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow main = new MainWindow();
+            MainWindow main = new MainWindow(null);
             main.Show();
             this.Close();
         }

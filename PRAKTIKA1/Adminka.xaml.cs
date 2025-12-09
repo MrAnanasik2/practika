@@ -22,10 +22,13 @@ namespace PRAKTIKA1
     public partial class Adminka : Window
     {
         public ObservableCollection<autorize> autorizes { get; set; }
-        public Adminka()
+        private autorize _currentUser;
+        public Adminka(autorize userHz)
         {
             InitializeComponent();
             var UserList = DbService.GetAllUsers();
+
+            _currentUser = userHz;
 
             autorizes = new ObservableCollection<autorize> { };
 
@@ -39,7 +42,7 @@ namespace PRAKTIKA1
 
         private void Перелётики_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow main = new MainWindow();
+            MainWindow main = new MainWindow(null);
             main.Show();
             this.Close();
 
