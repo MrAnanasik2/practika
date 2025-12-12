@@ -61,8 +61,12 @@
        Visibility="Collapsed"
        Background="Transparent"
        Panel.ZIndex="100"/>
-        
-        
-        
+        <TextBlock HorizontalAlignment="Left" Margin="50,339,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Куда" FontSize="20"/>
+        <TextBlock HorizontalAlignment="Left" Margin="246,341,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20"><Run Language="ru-ru" Text="Откуда"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="850,341,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20"><Run Language="ru-ru" Text="Тип места"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="1045,340,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20" Width="200" Height="29"><Run Text="Кол"/><Run Language="ru-ru" Text="-во"/><Run Text=" пассажиров"/></TextBlock>
+
+
+
     </Grid>
 </Window>

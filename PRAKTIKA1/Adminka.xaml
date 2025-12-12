@@ -9,17 +9,57 @@
     <Window.Background>
         <ImageBrush ImageSource="/1440.1024.png"/>
     </Window.Background>
+
     <Grid Background="White" Margin="150,59,150,90">
-        <Button x:Name="Перелётики" Content="Перелётики" HorizontalAlignment="Left" Margin="-40,-55,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="20" Click="Перелётики_Click"/>
-        <ListBox x:Name="CBO" ItemsSource="{Binding autorizes}" Margin="58,88,44,87" Background="{x:Null}">
+
+        <Button x:Name="Перелётики" Content="Перелётики"
+                HorizontalAlignment="Left" Margin="-40,-55,0,0"
+                VerticalAlignment="Top" Background="{x:Null}"
+                BorderBrush="{x:Null}" Foreground="White"
+                FontSize="20" Click="Перелётики_Click"/>
+
+        <ListBox x:Name="CBO"
+                 ItemsSource="{Binding autorizes}"
+                 Margin="58,88,44,87"
+                 Background="{x:Null}"
+                 SelectionChanged="CBO_SelectionChanged">
+
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Border>
-                        <TextBox Text="{Binding Login}" Width="100" Height="40" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Border Padding="5" Margin="5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Логин + Роль -->
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="{Binding Login}" FontSize="18"/>
+                                <TextBlock Text="{Binding Role}" FontSize="14" />
+                            </StackPanel>
+
+                            <!-- Кнопка Удалить -->
+                            <Button Content="Удалить"
+                                    Grid.Column="1"
+                                    Margin="10,0,0,0"
+                                    Padding="8,4"
+                                    Tag="{Binding}"
+                                    Click="DeleteUser_Click"/>
+                        </Grid>
                     </Border>
                 </DataTemplate>
             </ListBox.ItemTemplate>
+
         </ListBox>
-        <TextBlock HorizontalAlignment="Left" Margin="508,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="32"><Run Text="ADMINKLA"/><LineBreak/><Run/></TextBlock>
+
+        <TextBlock HorizontalAlignment="Left"
+                   Margin="508,23,0,0"
+                   TextWrapping="Wrap"
+                   VerticalAlignment="Top"
+                   FontSize="32">
+            <Run Text="ADMINKA"/>
+        </TextBlock>
+
     </Grid>
 </Window>

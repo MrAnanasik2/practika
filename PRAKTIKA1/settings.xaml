@@ -6,31 +6,132 @@
         xmlns:local="clr-namespace:PRAKTIKA1"
         mc:Ignorable="d"
         Title="settings" Height="1024" Width="1440">
+
     <Window.Background>
         <ImageBrush ImageSource="/1440.1024.png"/>
     </Window.Background>
-    <Grid Margin="0,100,0,-16" Width="1440" Background="White">
+
+    <Grid Margin="0,0,0,-16" Width="1440" Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="103*"/>
             <ColumnDefinition Width="617*"/>
         </Grid.ColumnDefinitions>
+
         <Rectangle HorizontalAlignment="Left" Height="80" Stroke="Black" VerticalAlignment="Top" Width="250" Grid.ColumnSpan="2"/>
         <Rectangle HorizontalAlignment="Left" Height="935" Margin="0,79,0,0" Stroke="Black" VerticalAlignment="Top" Width="250" Grid.ColumnSpan="2"/>
-        <TextBlock HorizontalAlignment="Left" Margin="46,19,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="32"><Run Language="ru-ru" Text="Настройки"/></TextBlock>
-        <Grid Margin="78,79,10,674" Background="#FFF3F3F3" Grid.Column="1">
+
+        <TextBlock HorizontalAlignment="Left" Margin="46,19,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="32">
+            <Run Language="ru-ru" Text="Настройки"/>
+        </TextBlock>
+
+        <Grid Margin="78,79,42,768" Background="#FFF3F3F3" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <ComboBox Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Width="120"/>
-            <ComboBox Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="10,121,0,0" VerticalAlignment="Top" Width="120"/>
-            <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18"><Run Language="ru-ru" Text="Страна"/></TextBlock>
-            <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="10,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18"><Run Language="ru-ru" Text="Валюта"/></TextBlock>
+
+            <!-- ВАЛЮТЫ: добавил SelectionChanged -->
+            <ComboBox x:Name="tip_mony"
+                      ItemsSource="{Binding Monies}"
+                      HorizontalAlignment="Left"
+                      Margin="10,39,0,0"
+                      VerticalAlignment="Top"
+                      Width="167"
+                      Height="44"
+                      Grid.ColumnSpan="2"
+                      SelectionChanged="Tip_mony_SelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border>
+                            <TextBlock Text="{Binding Mony_type}"
+                                       Width="100"
+                                       Height="40"
+                                       Margin="10"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Top"/>
+                        </Border>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <!-- СТРАНЫ: добавил SelectionChanged -->
+            <ComboBox x:Name="tip_country"
+                      ItemsSource="{Binding Countrys}"
+                      HorizontalAlignment="Left"
+                      Margin="10,117,0,0"
+                      VerticalAlignment="Top"
+                      Width="167"
+                      Height="44"
+                      Grid.ColumnSpan="2"
+                      SelectionChanged="Tip_country_SelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border>
+                            <TextBlock Text="{Binding Country_name}"
+                                       Width="100"
+                                       Height="40"
+                                       Margin="10"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Top"/>
+                        </Border>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18">
+                <Run Language="ru-ru" Text="Страна"/>
+            </TextBlock>
+
+            <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="10,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18">
+                <Run Language="ru-ru" Text="Валюта"/>
+            </TextBlock>
+            <Button Content="Обновить данные" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="910,124,0,0" VerticalAlignment="Top" FontSize="20" Click="Button_Click_1"/>
         </Grid>
-        <TextBlock HorizontalAlignment="Left" Margin="78,29,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="28" Height="42" Grid.Column="1"><Run Language="ru-ru" Text="Региональные"/><LineBreak/><Run Language="ru-ru"/></TextBlock>
+
+        <TextBlock HorizontalAlignment="Left" Margin="78,29,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="28" Height="42" Grid.Column="1">
+            <Run Language="ru-ru" Text="Региональные"/>
+        </TextBlock>
+
         <Border HorizontalAlignment="Left" Margin="25,98,0,0" VerticalAlignment="Top" Width="200" Height="40" CornerRadius="20" Background="#FFFFAF00" Grid.ColumnSpan="2">
-            <Button Content="Button" BorderBrush="{x:Null}" Background="Transparent" Height="40" />
+            <Button Content="Общее"
+                    BorderBrush="{x:Null}"
+                    Background="Transparent"
+                    Height="40"
+                    Click="Button_Click"
+                    FontSize="18"/>
         </Border>
-        <Button x:Name="Перелётики" Content="Перелётики" HorizontalAlignment="Left" Margin="112,-90,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="20" Click="Перелётики_Click" Grid.ColumnSpan="2"/>
+
+        <Button x:Name="Перелётики"
+                Content="Перелётики"
+                HorizontalAlignment="Left"
+                Margin="1079,19,0,0"
+                VerticalAlignment="Top"
+                Background="{x:Null}"
+                BorderBrush="{x:Null}"
+                Foreground="Black"
+                FontSize="20"
+                Click="Перелётики_Click"
+                Grid.Column="1"/>
+
+        <TextBlock HorizontalAlignment="Left" Margin="67,177,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18">
+            <Run Language="ru-ru" Text="Напоминания"/>
+        </TextBlock>
+
+        <TextBlock HorizontalAlignment="Left" Margin="70,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18">
+            <Run Language="ru-ru" Text="Ваши билеты"/>
+        </TextBlock>
+
+        <Grid Grid.Column="1" Background="#FFF3F3F3" Margin="78,328,42,51">
+            <TextBlock HorizontalAlignment="Left" Margin="10,30,0,0" TextWrapping="Wrap" Text="Данные" VerticalAlignment="Top" FontSize="26"/>
+            <TextBlock HorizontalAlignment="Left" Margin="22,91,0,0" TextWrapping="Wrap" Text="Способы оплаты" VerticalAlignment="Top" FontSize="20"/>
+            <TextBlock HorizontalAlignment="Left" Margin="10,156,0,0" TextWrapping="Wrap" Text="Документы" VerticalAlignment="Top" FontSize="26"/>
+            <TextBlock HorizontalAlignment="Left" Margin="22,222,0,0" TextWrapping="Wrap" Text="Политика конфиденциальности" VerticalAlignment="Top" FontSize="20"/>
+            <TextBlock HorizontalAlignment="Left" Margin="22,287,0,0" TextWrapping="Wrap" Text="Лицензионное соглашение" VerticalAlignment="Top" FontSize="20"/>
+        </Grid>
+
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="78,272,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="28">
+            <Run Language="ru-ru" Text="Конфиденциальность"/>
+        </TextBlock>
+
     </Grid>
 </Window>

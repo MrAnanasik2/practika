@@ -16,23 +16,21 @@ using System.Windows.Shapes;
 
 namespace PRAKTIKA1
 {
-    /// <summary>
-    /// Логика взаимодействия для Adminka.xaml
-    /// </summary>
     public partial class Adminka : Window
     {
         public ObservableCollection<autorize> autorizes { get; set; }
         private autorize _currentUser;
+
         public Adminka(autorize userHz)
         {
             InitializeComponent();
-            var UserList = DbService.GetAllUsers();
 
+            var UserList = DbService.GetAllUsers();
             _currentUser = userHz;
 
-            autorizes = new ObservableCollection<autorize> { };
+            autorizes = new ObservableCollection<autorize>();
 
-            foreach(var user in UserList)
+            foreach (var user in UserList)
             {
                 autorizes.Add(user);
             }
@@ -45,8 +43,39 @@ namespace PRAKTIKA1
             MainWindow main = new MainWindow(null);
             main.Show();
             this.Close();
+        }
 
-            
+        private void CBO_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+        }
+
+        // ===========================
+        //   ОБРАБОТЧИК УДАЛЕНИЯ
+        // ===========================
+        private void DeleteUser_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var user = button?.Tag as autorize;
+
+            if (user == null)
+                return;
+
+            // Подтверждение удаления
+            if (MessageBox.Show($"Удалить пользователя \"{user.Login}\"?",
+                                "Подтверждение",
+                                MessageBoxButton.YesNo,
+                                MessageBoxImage.Warning) != MessageBoxResult.Yes)
+                return;
+
+            // ----------- ТУТ ТВОЙ КОД УДАЛЕНИЯ ИЗ БАЗЫ -----------
+            // Например:
+            DbService.DeleteUser(user.Id);
+            // ------------------------------------------------------
+
+            // Удаляем из списка (UI обновится автоматически)
+            autorizes.Remove(user);
+
+            MessageBox.Show("Пользователь удалён.");
         }
     }
 }

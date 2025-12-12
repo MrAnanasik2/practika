@@ -41,6 +41,7 @@ namespace PRAKTIKA1
             }
             return rowsAffected;
         }
+       
 
         // Универсальный метод для получения данных с возможностью преобразования
         public static List<T> GetData<T>(string query, Func<MySqlDataReader, T> mapFunction)
@@ -102,7 +103,7 @@ namespace PRAKTIKA1
                                 Id = reader.GetInt32("Id"),
                                 Login = reader.GetString("Login"),
                                 Password = reader.GetString("Password"),
-                                Email = reader.GetString("E-mail"),
+                                Email = reader.GetString("Email"),
                                 Money_id = reader.GetInt32("Money_id"),
                                 Country_id = reader.GetInt32("Country_id"),
                                 Role = reader.GetString("Role")
@@ -174,7 +175,7 @@ namespace PRAKTIKA1
                 Id = reader.GetInt32("Id"),
                 Login = reader.GetString("Login"),
                 Password = reader.GetString("Password"),
-                Email = reader.GetString("E-mail"),
+                Email = reader.GetString("Email"),
                 Money_id = reader.GetInt32("Money_id"),
                 Country_id = reader.GetInt32("Country_id"),
                 Role = reader.GetString("Role")
@@ -193,96 +194,73 @@ namespace PRAKTIKA1
             });
         }
 
-        // Метод для обновления данных пользователя
-        //public static bool UpdateUser(User user)
-        //{
-        //    try
-        //    {
-        //        string query = @"UPDATE users 
-        //                SET surname = @surname, 
-        //                    name = @name, 
-        //                    patronymic = @patronymic, 
-        //                    role = @role, 
-        //                    login = @login, 
-        //                    password = @password 
-        //                WHERE id = @id";
+        public static List<Country> GetCountry()
+        {
+            string query = "SELECT * FROM Country ORDER BY Country_id";
 
-        //        var parameters = new Dictionary<string, object>
-        //        {
-        //            ["@id"] = user.Id,
-        //            ["@surname"] = user.Surname,
-        //            ["@name"] = user.Name,
-        //            ["@patronymic"] = user.Patronymic,
-        //            ["@role"] = user.Role,
-        //            ["@login"] = user.Login,
-        //            ["@password"] = user.Password
-        //        };
+            // Используем универсальный метод GetData с лямбда-выражением для создания объектов User
+            return GetData(query, reader => new Country
+            {
+                Country_id = reader.GetInt32("Country_id"),
+                Country_name = reader.GetString("Country_name")
+            });
+        }
 
-        //        ExecuteNonQueryWithParameters(query, parameters);
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show($"Ошибка обновления пользователя: {ex.Message}");
-        //        return false;
-        //    }
-        //}
 
-        //// Метод для удаления пользователя по ID
-        //public static bool DeleteUser(int userId)
-        //{
-        //    try
-        //    {
-        //        string query = "DELETE FROM users WHERE id = @id";
-        //        var parameters = new Dictionary<string, object>
-        //        {
-        //            ["@id"] = userId
-        //        };
+        //Метод для обновления данных пользователя
+        public static bool UpdateUser(autorize user)
+        {
+            try
+            {
+                string query = @"UPDATE autorize 
+                        SET Login = @Login, 
+                            Password = @Password, 
+                            Email = @Email, 
+                            Country_id = @Country_id, 
+                            Money_id = @Money_id, 
+                            Role = @Role 
+                        WHERE Id = @Id";
 
-        //        ExecuteNonQueryWithParameters(query, parameters);
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show($"Ошибка удаления пользователя: {ex.Message}");
-        //        return false;
-        //    }
-        //}
+                var parameters = new Dictionary<string, object>
+                {
+                    ["@Id"] = user.Id,
+                    ["@Login"] = user.Login,
+                    ["@Password"] = user.Password,
+                    ["@Email"] = user.Email,
+                    ["@Country_id"] = user.Country_id,
+                    ["@Money_id"] = user.Money_id,
+                    ["@Role"] = user.Role,
+                };
 
-        //public static List<News> GetAllNews()
-        //{
-        //    string query = "SELECT * FROM news ORDER BY id DESC";
-        //    return GetData(query, reader => new News
-        //    {
-        //        Id = reader.GetInt32("id"),
-        //        Title = reader.GetString("title"),
-        //        Description = reader.GetString("description"),
-        //        ImagePath = reader.GetString("image_path")
-        //    });
-        //}
+                ExecuteNonQueryWithParameters(query, parameters);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка обновления пользователя: {ex.Message}");
+                return false;
+            }
+        }
 
-        //public static bool AddNews(News news)
-        //{
-        //    try
-        //    {
-        //        string query = @"INSERT INTO news (title, description, image_path) 
-        //                VALUES (@title, @description, @image_path)";
+        // Метод для удаления пользователя по ID
+        public static bool DeleteUser(int userId)
+        {
+            try
+            {
+                string query = "DELETE FROM autorize WHERE Id = @Id";
+                var parameters = new Dictionary<string, object>
+                {
+                    ["@Id"] = userId
+                };
 
-        //        var parameters = new Dictionary<string, object>
-        //        {
-        //            ["@title"] = news.Title,
-        //            ["@description"] = news.Description,
-        //            ["@image_path"] = news.ImagePath
-        //        };
-
-        //        ExecuteNonQueryWithParameters(query, parameters);
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show($"Ошибка добавления новости: {ex.Message}");
-        //        return false;
-        //    }
-        //}
+                ExecuteNonQueryWithParameters(query, parameters);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка удаления пользователя: {ex.Message}");
+                return false;
+            }
+        }
     }
 }

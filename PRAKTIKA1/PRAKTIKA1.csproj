@@ -11,7 +11,9 @@
   <ItemGroup>
     <None Remove="1440.1024.png" />
     <None Remove="img\1440.1024.png" />
+    <None Remove="img\mapa.png" />
     <None Remove="img\PERELETIK.png" />
+    <None Remove="img\popka.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,7 +22,13 @@
 
   <ItemGroup>
     <Resource Include="1440.1024.png" />
+    <Resource Include="img\mapa.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="img\PERELETIK.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\popka.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

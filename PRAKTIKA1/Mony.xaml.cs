@@ -1,5 +1,7 @@
-﻿using System;
+﻿using PRAKTIKA1.Models;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,21 +22,45 @@ namespace PRAKTIKA1
     /// </summary>
     public partial class Mony : Page
     {
+        public ObservableCollection<Models.Money> Monies { get; set; }
+        public ObservableCollection<Country> Countrys { get; set; }
         public Mony()
         {
             InitializeComponent();
+            var MonyList = DbService.GetMonies();
+
+            Monies = new ObservableCollection<Models.Money> { };
+
+            foreach (var mony in MonyList)
+            {
+                Monies.Add(mony);
+            }
+
+            DataContext = this;
+
+
+
+
+            var CountryList = DbService.GetCountry();
+
+            Countrys = new ObservableCollection<Country> { };
+
+            foreach (var contry in CountryList)
+            {
+                Countrys.Add(contry);
+            }
+
+            DataContext = this;
         }
 
         private void denga_Click(object sender, RoutedEventArgs e)
         {
-            типы_денег.Visibility = Visibility.Visible;
-            типы_стран.Visibility = Visibility.Collapsed;
+
         }
 
         private void country_Click(object sender, RoutedEventArgs e)
         {
-            типы_стран.Visibility = Visibility.Visible;
-            типы_денег.Visibility = Visibility.Collapsed;
+
         }
 
         private void back_Click_1(object sender, RoutedEventArgs e)

@@ -10,9 +10,12 @@ namespace PRAKTIKA1
     public partial class Reg : Window
     {
         public ObservableCollection<Models.Money> Monies { get; set; }
+        public ObservableCollection<Country> Countrys { get; set; }
         public Reg()
         {
             InitializeComponent();
+
+
             var MonyList = DbService.GetMonies();
 
             Monies = new ObservableCollection<Models.Money> { };
@@ -23,10 +26,72 @@ namespace PRAKTIKA1
             }
 
             DataContext = this;
+
+
+
+
+            var CountryList = DbService.GetCountry();
+
+            Countrys = new ObservableCollection<Country> { };
+
+            foreach (var contry in CountryList)
+            {
+                Countrys.Add(contry);
+            }
+
+            DataContext = this;
         }
 
-        // Обработчик события нажатия на кнопку "Войти"
-        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            UpdateLoginPlaceholder();
+            UpdatePasswordPlaceholder();
+            UpdateEmailPlaceholder();
+        }
+
+        private void Перелётики_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow main = new MainWindow(null);
+            main.Show();
+            this.Close();
+        }
+
+        private void Рег_Click(object sender, RoutedEventArgs e)
+
+        {
+            // Получаем логин из текстового поля и удаляем лишние пробелы
+            string login = Логин.Text.Trim();
+            // Получаем пароль из поля для пароля (PasswordBox скрывает ввод)
+            string password = Пароль.Password;
+            string email = Email.Text.Trim(null);
+            var selectedMoney = tip_mony.SelectedItem as Models.Money;
+            var selectedCountry = tip_country.SelectedItem as Country;
+
+
+
+            if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(email))
+            {
+                MessageBox.Show("Введите все данные");
+                return;
+            }
+            else {
+                autorize newUser = new autorize
+                {
+                    Login = login,
+                    Password = password,
+                    Email = email,
+                    Money_id = selectedMoney.Mony_id,
+                    Country_id = selectedCountry.Country_id,
+
+                };
+            bool success = DbService.RegisterUser(newUser);
+                MainWindow main = new MainWindow(newUser);
+                main.Show();
+                this.Close();
+            }
+        }
+
+         private void Уже_есть_Click(object sender, RoutedEventArgs e)
         {
             // Получаем логин из текстового поля и удаляем лишние пробелы
             string login = Логин.Text.Trim();
@@ -50,7 +115,7 @@ namespace PRAKTIKA1
                 // Если пользователь найден (аутентификация успешна):
 
                 // Открываем окно, соответствующее роли пользователя
-                    OpenRoleWindow(user);
+                OpenRoleWindow(user);
                 // скрываем, но не уничтожаем
                 // Окно невидимо, но продолжает существовать в памяти
                 // Можно вернуться к нему позже (например, при разлогине)
@@ -61,39 +126,6 @@ namespace PRAKTIKA1
                 MessageBox.Show("Неверный логин или пароль");
             }
         }
-
-
-        
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            UpdateLoginPlaceholder();
-            UpdatePasswordPlaceholder();
-            UpdateEmailPlaceholder();
-        }
-
-        private void Перелётики_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindow main = new MainWindow(null);
-            main.Show();
-            this.Close();
-        }
-
-        private void Рег_Click(object sender, RoutedEventArgs e)
-        
-            {
-                // Создаем экземпляр окна регистрации
-                var registerWindow = new Reg();
-
-                // Устанавливаем текущее окно как владельца окна регистрации
-                // Это обеспечивает модальность окна (блокирует родительское окно)
-                registerWindow.Owner = this;
-
-                // Открываем окно регистрации в модальном режиме
-                // ShowDialog() блокирует выполнение кода до закрытия окна
-                registerWindow.ShowDialog();
-            }
-        
 
         // Метод для открытия окна в зависимости от роли пользователя
         private void OpenRoleWindow(autorize user)
@@ -106,10 +138,6 @@ namespace PRAKTIKA1
                 case "admin":
                     // Для администратора открываем AdminWindow
                     roleWindow = new Adminka(user);
-                    Adminka adminka = new Adminka(user);
-                    
-                    adminka.Show();
-                    this.Close();
                     break;
 
                 case "editor":
@@ -151,7 +179,7 @@ namespace PRAKTIKA1
             UpdatePasswordPlaceholder();
         }
 
-        private void E_mail_TextChanged(object sender, TextChangedEventArgs e)
+        private void Email_TextChanged(object sender, TextChangedEventArgs e)
         {
             UpdateEmailPlaceholder();
         }
@@ -169,8 +197,8 @@ namespace PRAKTIKA1
 
         private void PlaceholderEmail_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            E_mail.Focus();
-            E_mail.CaretIndex = E_mail.Text.Length;
+            Email.Focus();
+            Email.CaretIndex = Email.Text.Length;
         }
 
         private void UpdateLoginPlaceholder()
@@ -189,15 +217,12 @@ namespace PRAKTIKA1
 
         private void UpdateEmailPlaceholder()
         {
-            PlaceholderEmail.Visibility = string.IsNullOrEmpty(E_mail.Text)
+            PlaceholderEmail.Visibility = string.IsNullOrEmpty(Email.Text)
                 ? Visibility.Visible
                 : Visibility.Collapsed;
         }
 
-        private void Уже_есть_Click(object sender, RoutedEventArgs e)
-        {
-           
-        }
+       
 
         private void tip_country_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -209,7 +234,11 @@ namespace PRAKTIKA1
 
             
         }
-        
+
+        private void tip_country_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 
 }
