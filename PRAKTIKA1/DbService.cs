@@ -93,11 +93,11 @@ namespace PRAKTIKA1
                         {
                             return new aregistr
                             {
-                                Id = reader.GetInt32("Id"),
+                                id = reader.GetInt32("id"),
                                 name = reader.GetString("name"),
                                 phone = reader.GetInt32("phone"),
-                                Email = reader.GetString("Email"),
-                                Password = reader.GetString("Password"),
+                                email = reader.GetString("email"),
+                                password = reader.GetString("password"),
                                 Role = reader.GetString("Role")
                             };
                         }
@@ -123,10 +123,10 @@ namespace PRAKTIKA1
                 var parameters = new Dictionary<string, object>
                 {
                     ["@name"] = newUser.name,
-                    [@secondname] = newUser.secondname,
-                    [@phone] = newUser.phone,
+                    ["@secondname"] = newUser.secondname,
+                    ["@phone"] = newUser.phone,
                     ["@email"] = newUser.email,
-                    ["@password"] = newUser.Password,
+                    ["@password"] = newUser.password,
                     ["@Role"] = "user", // Все новые пользователи получают роль 'user'
                 };
 
@@ -142,12 +142,12 @@ namespace PRAKTIKA1
         // Метод для получения всех пользователей из БД
         public static List<aregistr> GetAllUsers()
         {
-            string query = "SELECT * FROM aregistr ORDER BY Id";
+            string query = "SELECT * FROM aregistr ORDER BY id";
 
             // Используем универсальный метод GetData с лямбда-выражением для создания объектов User
             return GetData(query, reader => new aregistr
             {
-                Id = reader.GetInt32("Id"),
+                id = reader.GetInt32("id"),
                 name = reader.GetString("name"),
                 secondname = reader.GetString("secondname"),
                 email = reader.GetString("email"),
@@ -162,22 +162,20 @@ namespace PRAKTIKA1
             try
             {
                 string query = @"UPDATE aregistr 
-                        SET Login = @Login, 
-                            Password = @Password, 
-                            Email = @Email, 
-                            Country_id = @Country_id, 
-                            Money_id = @Money_id, 
+                        SET name = @name, 
+                            secondname = @secondname,
+                            email = @email, 
+                            password = @password,
                             Role = @Role 
                         WHERE Id = @Id";
 
                 var parameters = new Dictionary<string, object>
                 {
-                    ["@Id"] = user.Id,
-                    ["@Login"] = user.Login,
-                    ["@Password"] = user.Password,
-                    ["@Email"] = user.Email,
-                    ["@Country_id"] = user.Country_id,
-                    ["@Money_id"] = user.Money_id,
+                    ["@id"] = user.id,
+                    ["@name"] = user.name,
+                    ["@secondname"] = user.secondname,
+                    ["@email"] = user.email,
+                    ["@password"] = user.password,
                     ["@Role"] = user.Role,
                 };
 
@@ -195,7 +193,7 @@ namespace PRAKTIKA1
         {
             try
             {
-                string query = "DELETE FROM autorize WHERE Id = @Id";
+                string query = "DELETE FROM aregistr WHERE id = @id";
                 var parameters = new Dictionary<string, object>
                 {
                     ["@Id"] = userId

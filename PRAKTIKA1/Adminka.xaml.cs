@@ -18,21 +18,21 @@ namespace PRAKTIKA1
 {
     public partial class Adminka : Window
     {
-        public ObservableCollection<autorize> autorizes { get; set; }
-        private autorize _currentUser;
+        public ObservableCollection<aregistr> aregistr { get; set; }
+        private aregistr _currentUser;
 
-        public Adminka(autorize userHz)
+        public Adminka(aregistr userHz)
         {
             InitializeComponent();
 
             var UserList = DbService.GetAllUsers();
             _currentUser = userHz;
 
-            autorizes = new ObservableCollection<autorize>();
+            aregistr = new ObservableCollection<aregistr>();
 
             foreach (var user in UserList)
             {
-                autorizes.Add(user);
+                aregistr.Add(user);
             }
 
             DataContext = this;
@@ -55,13 +55,13 @@ namespace PRAKTIKA1
         private void DeleteUser_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
-            var user = button?.Tag as autorize;
+            var user = button?.Tag as aregistr;
 
             if (user == null)
                 return;
 
             // Подтверждение удаления
-            if (MessageBox.Show($"Удалить пользователя \"{user.Login}\"?",
+            if (MessageBox.Show($"Удалить пользователя \"{user.name}\"?",
                                 "Подтверждение",
                                 MessageBoxButton.YesNo,
                                 MessageBoxImage.Warning) != MessageBoxResult.Yes)
@@ -69,11 +69,11 @@ namespace PRAKTIKA1
 
             // ----------- ТУТ ТВОЙ КОД УДАЛЕНИЯ ИЗ БАЗЫ -----------
             // Например:
-            DbService.DeleteUser(user.Id);
+            DbService.DeleteUser(user.id);
             // ------------------------------------------------------
 
             // Удаляем из списка (UI обновится автоматически)
-            autorizes.Remove(user);
+            aregistr.Remove(user);
 
             MessageBox.Show("Пользователь удалён.");
         }

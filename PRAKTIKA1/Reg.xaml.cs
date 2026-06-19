@@ -9,39 +9,6 @@ namespace PRAKTIKA1
 {
     public partial class Reg : Window
     {
-        public ObservableCollection<Models.Money> Monies { get; set; }
-        public ObservableCollection<Country> Countrys { get; set; }
-        public Reg()
-        {
-            InitializeComponent();
-
-
-            var MonyList = DbService.GetMonies();
-
-            Monies = new ObservableCollection<Models.Money> { };
-
-            foreach (var mony in MonyList)
-            {
-                Monies.Add(mony);
-            }
-
-            DataContext = this;
-
-
-
-
-            var CountryList = DbService.GetCountry();
-
-            Countrys = new ObservableCollection<Country> { };
-
-            foreach (var contry in CountryList)
-            {
-                Countrys.Add(contry);
-            }
-
-            DataContext = this;
-        }
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             UpdateLoginPlaceholder();
@@ -60,28 +27,29 @@ namespace PRAKTIKA1
 
         {
             // Получаем логин из текстового поля и удаляем лишние пробелы
-            string login = Логин.Text.Trim();
+            string name = Логин.Text.Trim();
+            string secondname = Фамилия.Text.Trim();
+            string phone = Телефон.Text.Trim();
             // Получаем пароль из поля для пароля (PasswordBox скрывает ввод)
-            string password = Пароль.Password;
+            string password = Пароль.password;
             string email = Email.Text.Trim(null);
-            var selectedMoney = tip_mony.SelectedItem as Models.Money;
-            var selectedCountry = tip_country.SelectedItem as Country;
 
 
 
-            if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(email))
+
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(email))
             {
                 MessageBox.Show("Введите все данные");
                 return;
             }
             else {
-                autorize newUser = new autorize
+                aregistr newUser = new aregistr
                 {
-                    Login = login,
-                    Password = password,
-                    Email = email,
-                    Money_id = selectedMoney.Mony_id,
-                    Country_id = selectedCountry.Country_id,
+                    name = name,
+                    secondname = secondname,
+                    phone = phone,                    
+                    email = email,
+                    password = password,
 
                 };
             bool success = DbService.RegisterUser(newUser);
@@ -128,7 +96,7 @@ namespace PRAKTIKA1
         }
 
         // Метод для открытия окна в зависимости от роли пользователя
-        private void OpenRoleWindow(autorize user)
+        private void OpenRoleWindow(aregistr user)
         {
             Window roleWindow = null; // Переменная для хранения ссылки на окно
 

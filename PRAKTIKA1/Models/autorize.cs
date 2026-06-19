@@ -8,7 +8,7 @@ namespace PRAKTIKA1.Models
 {
     public class aregistr
     {
-        public int Id { get; set; }
+        public int id { get; set; }
         public string name { get; set; }
         public string secondname { get; set; }
         public int phone { get; set; }
