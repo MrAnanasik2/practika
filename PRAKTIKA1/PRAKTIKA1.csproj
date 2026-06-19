@@ -9,7 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="1440.1024.png" />
     <None Remove="img\1440.1024.png" />
     <None Remove="img\mapa.png" />
     <None Remove="img\PERELETIK.png" />
@@ -21,7 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="1440.1024.png" />
     <Resource Include="img\mapa.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

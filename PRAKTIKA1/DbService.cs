@@ -1,7 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using PRAKTIKA1.Models;
 using System.Windows;
-
 namespace PRAKTIKA1
 {
     internal class DbService
@@ -20,7 +19,6 @@ namespace PRAKTIKA1
             // Возвращаем готовое подключение
             return connection;
         }
-
         // Универсальный метод для выполнения SQL-запросов, которые НЕ возвращают данные
         // (INSERT, UPDATE, DELETE) с использованием параметров для безопасности
         public static int ExecuteNonQueryWithParameters(string query, Dictionary<string, object> parameters)
@@ -41,8 +39,6 @@ namespace PRAKTIKA1
             }
             return rowsAffected;
         }
-       
-
         // Универсальный метод для получения данных с возможностью преобразования
         public static List<T> GetData<T>(string query, Func<MySqlDataReader, T> mapFunction)
         {
@@ -63,7 +59,6 @@ namespace PRAKTIKA1
             }
             return data;
         }
-
         // Метод для выполнения скалярных запросов (возвращающих одно значение)
         // Например: SELECT COUNT(*) FROM table
         public static object ExecuteScalar(string query, Dictionary<string, object> parameters)
@@ -80,32 +75,29 @@ namespace PRAKTIKA1
             }
             return result;
         }
-
         // Метод для аутентификации пользователя по логину и паролю
-        public static autorize AuthenticateUser(string login, string password)
+        public static aregistr AuthenticateUser(string name, string password)
         {
             try
             {
-                string query = "SELECT * FROM autorize WHERE login = @login AND password = @password";
+                string query = "SELECT * FROM aregistr WHERE name = @name AND password = @password";
 
                 using (MySqlConnection connection = GetConnection())
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@login", login);
+                    command.Parameters.AddWithValue("@name", name);
                     command.Parameters.AddWithValue("@password", password);
-
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            return new autorize
+                            return new aregistr
                             {
                                 Id = reader.GetInt32("Id"),
-                                Login = reader.GetString("Login"),
-                                Password = reader.GetString("Password"),
+                                name = reader.GetString("name"),
+                                phone = reader.GetInt32("phone"),
                                 Email = reader.GetString("Email"),
-                                Money_id = reader.GetInt32("Money_id"),
-                                Country_id = reader.GetInt32("Country_id"),
+                                Password = reader.GetString("Password"),
                                 Role = reader.GetString("Role")
                             };
                         }
@@ -119,38 +111,22 @@ namespace PRAKTIKA1
 
             return null;
         }
-
         // Метод для регистрации нового пользователя
-        public static bool RegisterUser(autorize newUser)
+        public static bool RegisterUser(aregistr newUser)
         {
             try
             {
-                // Проверка существующего логина
-                string checkQuery = "SELECT COUNT(*) FROM autorize WHERE login = @login";
-                using (MySqlConnection connection = GetConnection())
-                using (MySqlCommand checkCommand = new MySqlCommand(checkQuery, connection))
-                {
-                    checkCommand.Parameters.AddWithValue("@login", newUser.Login);
-                    long count = (long)checkCommand.ExecuteScalar();
-
-                    if (count > 0)
-                    {
-                        MessageBox.Show("Пользователь с таким логином уже существует!");
-                        return false;
-                    }
-                }
-
                 // Регистрация нового пользователя
-                string insertQuery = @"INSERT INTO autorize (Login, Password, Email,Money_id, Country_id, Role) 
-                                VALUES (@Login, @Password, @Email, @Money_id, @Country_id, @Role)";
+                string insertQuery = @"INSERT INTO aregistr (name, secondname, phone, Mail, password, Role) 
+                                VALUES (@name, @secondname, @phone, @email, @password, @Role)";
 
                 var parameters = new Dictionary<string, object>
                 {
-                    ["@Login"] = newUser.Login,
-                    ["@Password"] = newUser.Password,
-                    ["@Email"] = newUser.Email,
-                    ["@Money_id"] = newUser.Money_id,
-                    ["@Country_id"] = newUser.Country_id,
+                    ["@name"] = newUser.name,
+                    [@secondname] = newUser.secondname,
+                    [@phone] = newUser.phone,
+                    ["@email"] = newUser.email,
+                    ["@password"] = newUser.Password,
                     ["@Role"] = "user", // Все новые пользователи получают роль 'user'
                 };
 
@@ -163,56 +139,29 @@ namespace PRAKTIKA1
                 return false;
             }
         }
-
         // Метод для получения всех пользователей из БД
-        public static List<autorize> GetAllUsers()
+        public static List<aregistr> GetAllUsers()
         {
-            string query = "SELECT * FROM autorize ORDER BY Id";
+            string query = "SELECT * FROM aregistr ORDER BY Id";
 
             // Используем универсальный метод GetData с лямбда-выражением для создания объектов User
-            return GetData(query, reader => new autorize
+            return GetData(query, reader => new aregistr
             {
                 Id = reader.GetInt32("Id"),
-                Login = reader.GetString("Login"),
-                Password = reader.GetString("Password"),
-                Email = reader.GetString("Email"),
-                Money_id = reader.GetInt32("Money_id"),
-                Country_id = reader.GetInt32("Country_id"),
+                name = reader.GetString("name"),
+                secondname = reader.GetString("secondname"),
+                email = reader.GetString("email"),
+                password = reader.GetString("password"),
                 Role = reader.GetString("Role")
             });
         }
-
-        public static List<Models.Money> GetMonies() 
-        {
-            string query = "SELECT * FROM Money ORDER BY Mony_id";
-
-            // Используем универсальный метод GetData с лямбда-выражением для создания объектов User
-            return GetData(query, reader => new Models.Money
-            {
-                Mony_id = reader.GetInt32("Mony_id"),
-                Mony_type = reader.GetString("Mony_type")
-            });
-        }
-
-        public static List<Country> GetCountry()
-        {
-            string query = "SELECT * FROM Country ORDER BY Country_id";
-
-            // Используем универсальный метод GetData с лямбда-выражением для создания объектов User
-            return GetData(query, reader => new Country
-            {
-                Country_id = reader.GetInt32("Country_id"),
-                Country_name = reader.GetString("Country_name")
-            });
-        }
-
-
+        
         //Метод для обновления данных пользователя
-        public static bool UpdateUser(autorize user)
+        public static bool UpdateUser(aregistr user)
         {
             try
             {
-                string query = @"UPDATE autorize 
+                string query = @"UPDATE aregistr 
                         SET Login = @Login, 
                             Password = @Password, 
                             Email = @Email, 
@@ -241,7 +190,6 @@ namespace PRAKTIKA1
                 return false;
             }
         }
-
         // Метод для удаления пользователя по ID
         public static bool DeleteUser(int userId)
         {
@@ -252,7 +200,6 @@ namespace PRAKTIKA1
                 {
                     ["@Id"] = userId
                 };
-
                 ExecuteNonQueryWithParameters(query, parameters);
                 return true;
             }
